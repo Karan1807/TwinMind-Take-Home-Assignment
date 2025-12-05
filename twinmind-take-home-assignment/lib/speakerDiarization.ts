@@ -142,7 +142,7 @@ Only include segments from the current batch (not context segments).`;
               } else if (!labelLower.startsWith('speaker ')) {
                 // If it's not a generic "Speaker X" label, treat it as an actual name
                 // Capitalize properly
-                speakerLabel = speakerLabel.split(' ').map(word => 
+                speakerLabel = speakerLabel.split(' ').map((word: string) => 
                   word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                 ).join(' ');
                 speakerMap.set(labelLower, speakerLabel);
@@ -154,7 +154,7 @@ Only include segments from the current batch (not context segments).`;
             } else {
               // No known speakers, but if it's not "Speaker X", treat as name
               if (!labelLower.startsWith('speaker ')) {
-                speakerLabel = speakerLabel.split(' ').map(word => 
+                speakerLabel = speakerLabel.split(' ').map((word: string) => 
                   word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
                 ).join(' ');
                 speakerMap.set(labelLower, speakerLabel);

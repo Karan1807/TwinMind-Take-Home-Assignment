@@ -5,7 +5,6 @@ import { smartChunkText } from "@/lib/chunking";
 import { extractMetadata, extractGenericMetadata } from "@/lib/metadata";
 import { createEmbeddingsAndStore } from "@/lib/embeddings";
 import { processDocument } from "@/lib/documentProcessing";
-import { processImage } from "@/lib/imageProcessing";
 import { inferSpeakerAttribution } from "@/lib/speakerDiarization";
 
 export async function POST(
@@ -179,44 +178,6 @@ export async function POST(
         break;
       }
 
-      case "images": {
-        if (!job.storage_path) {
-          throw new Error("No storage path found for image job");
-        }
-
-        // Download image file
-        const { data: fileData, error: downloadError } = await supabase.storage
-          .from("uploads")
-          .download(job.storage_path);
-
-        if (downloadError || !fileData) {
-          throw new Error(`Failed to download image: ${downloadError?.message}`);
-        }
-
-        const imageBuffer = Buffer.from(await fileData.arrayBuffer());
-        const mimeType = job.metadata?.mimeType || "image/jpeg";
-        console.log(`   ✅ Image file downloaded (${(imageBuffer.length / (1024 * 1024)).toFixed(2)} MB)`);
-
-        // Process image (OCR + Vision)
-        const processed = await processImage(
-          imageBuffer,
-          job.source_name || "image",
-          mimeType,
-        );
-        extractedText = processed.text;
-
-        // Extract metadata
-        metadata = await extractGenericMetadata(extractedText, processed.metadata.imageType || "image");
-        // Merge image-specific metadata
-        metadata = {
-          ...metadata,
-          imageType: processed.metadata.imageType,
-          extractedText: processed.metadata.extractedText,
-          description: processed.metadata.description,
-        };
-        break;
-      }
-
       default:
         throw new Error(`Unsupported modality: ${job.modality}`);
     }
@@ -274,9 +235,6 @@ export async function POST(
           documentType: metadata.documentType,
           pageCount: metadata.pageCount,
           wordCount: metadata.wordCount,
-        }),
-        ...(job.modality === "images" && {
-          imageType: metadata.imageType,
         }),
       },
     };

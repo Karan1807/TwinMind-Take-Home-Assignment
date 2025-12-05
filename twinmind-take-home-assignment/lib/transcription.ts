@@ -37,7 +37,8 @@ export async function transcribeAudio(
   console.log(`   🎵 Detected MIME type: ${mimeType}`);
 
   // Create a File-like object for OpenAI
-  const file = new File([audioBuffer], filename, {
+  // Convert Buffer to Uint8Array for File constructor compatibility
+  const file = new File([new Uint8Array(audioBuffer)], filename, {
     type: mimeType,
   });
 

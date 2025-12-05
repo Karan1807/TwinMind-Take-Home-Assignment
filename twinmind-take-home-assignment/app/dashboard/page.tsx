@@ -25,12 +25,6 @@ const modalities = [
     emoji: "✏️",
     description: "Quick snippets or notes",
   },
-  {
-    value: "images",
-    label: "Images",
-    emoji: "🖼️",
-    description: "Screenshots and diagrams",
-  },
 ];
 
 type User = {
@@ -148,7 +142,6 @@ export default function DashboardPage() {
     const isFileModality =
       selectedModality === "audio" ||
       selectedModality === "document" ||
-      selectedModality === "images" ||
       selectedModality === "plain text";
 
     if (isFileModality && !file) {
@@ -454,7 +447,7 @@ export default function DashboardPage() {
                     Start building your knowledge base
                   </h2>
                   <p className="mt-2 text-sm text-blue-200/60">
-                    Upload audio, documents, images, or text to get started.
+                    Upload audio, documents, or text to get started.
                   </p>
                   <button
                     onClick={() => setOpen(true)}
@@ -537,28 +530,29 @@ export default function DashboardPage() {
                           </div>
                           {job.metadata && job.status === "completed" && (
                             <div className="mt-3 space-y-2 text-xs text-zinc-400">
-                              {job.metadata.chunksCount && (
-                                <div className="flex items-center gap-2">
-                                  <span>✅</span>
-                                  <span>
-                                    Processed: {job.metadata.chunksCount} chunks
-                                    stored in Qdrant
-                                  </span>
-                                </div>
-                              )}
-                              {job.metadata.sourceDate && (
-                                <div className="flex items-center gap-2">
-                                  <span>📅</span>
-                                  <span>
-                                    Source date:{" "}
-                                    {new Date(
-                                      job.metadata.sourceDate
-                                    ).toLocaleDateString()}
-                                  </span>
-                                </div>
-                              )}
-                              {job.metadata.keywords &&
-                                Array.isArray(job.metadata.keywords) &&
+                              {typeof job.metadata.chunksCount === "number" &&
+                                job.metadata.chunksCount > 0 && (
+                                  <div className="flex items-center gap-2">
+                                    <span>✅</span>
+                                    <span>
+                                      Processed: {job.metadata.chunksCount}{" "}
+                                      chunks stored in Qdrant
+                                    </span>
+                                  </div>
+                                )}
+                              {typeof job.metadata.sourceDate === "string" &&
+                                job.metadata.sourceDate && (
+                                  <div className="flex items-center gap-2">
+                                    <span>📅</span>
+                                    <span>
+                                      Source date:{" "}
+                                      {new Date(
+                                        job.metadata.sourceDate
+                                      ).toLocaleDateString()}
+                                    </span>
+                                  </div>
+                                )}
+                              {Array.isArray(job.metadata.keywords) &&
                                 job.metadata.keywords.length > 0 && (
                                   <div>
                                     <span className="font-semibold text-zinc-300">
@@ -570,8 +564,7 @@ export default function DashboardPage() {
                                     {job.metadata.keywords.length > 5 && "..."}
                                   </div>
                                 )}
-                              {job.metadata.actionItems &&
-                                Array.isArray(job.metadata.actionItems) &&
+                              {Array.isArray(job.metadata.actionItems) &&
                                 job.metadata.actionItems.length > 0 && (
                                   <div>
                                     <span className="font-semibold text-zinc-300">
@@ -594,8 +587,7 @@ export default function DashboardPage() {
                                     </ul>
                                   </div>
                                 )}
-                              {job.metadata.decisions &&
-                                Array.isArray(job.metadata.decisions) &&
+                              {Array.isArray(job.metadata.decisions) &&
                                 job.metadata.decisions.length > 0 && (
                                   <div>
                                     <span className="font-semibold text-zinc-300">
@@ -620,17 +612,17 @@ export default function DashboardPage() {
                                     </ul>
                                   </div>
                                 )}
-                              {job.metadata.meetingTitle && (
-                                <div className="flex items-center gap-2">
-                                  <span>📋</span>
-                                  <span className="font-semibold text-zinc-300">
-                                    Meeting:
-                                  </span>{" "}
-                                  {job.metadata.meetingTitle}
-                                </div>
-                              )}
-                              {job.metadata.speakers &&
-                                Array.isArray(job.metadata.speakers) &&
+                              {typeof job.metadata.meetingTitle === "string" &&
+                                job.metadata.meetingTitle && (
+                                  <div className="flex items-center gap-2">
+                                    <span>📋</span>
+                                    <span className="font-semibold text-zinc-300">
+                                      Meeting:
+                                    </span>{" "}
+                                    {job.metadata.meetingTitle}
+                                  </div>
+                                )}
+                              {Array.isArray(job.metadata.speakers) &&
                                 job.metadata.speakers.length > 0 && (
                                   <div>
                                     <span className="font-semibold text-zinc-300">
@@ -639,14 +631,15 @@ export default function DashboardPage() {
                                     {job.metadata.speakers.join(", ")}
                                   </div>
                                 )}
-                              {job.metadata.summary && (
-                                <div className="mt-2 rounded-lg bg-zinc-800/30 p-2 text-zinc-300">
-                                  <span className="font-semibold">
-                                    Summary:
-                                  </span>{" "}
-                                  {job.metadata.summary}
-                                </div>
-                              )}
+                              {typeof job.metadata.summary === "string" &&
+                                job.metadata.summary && (
+                                  <div className="mt-2 rounded-lg bg-zinc-800/30 p-2 text-zinc-300">
+                                    <span className="font-semibold">
+                                      Summary:
+                                    </span>{" "}
+                                    {job.metadata.summary}
+                                  </div>
+                                )}
                             </div>
                           )}
                           {job.error_message && (
@@ -752,7 +745,6 @@ export default function DashboardPage() {
 
                   {(selectedModality === "audio" ||
                     selectedModality === "document" ||
-                    selectedModality === "images" ||
                     selectedModality === "plain text") && (
                     <div>
                       <label className="mb-1 block text-xs uppercase tracking-wide text-blue-300/70">

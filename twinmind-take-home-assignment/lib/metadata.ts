@@ -117,7 +117,7 @@ Respond in JSON format:
 }
 
 /**
- * Extract metadata from any text content (for documents, web, plain text, images)
+ * Extract metadata from any text content (for documents, web, plain text)
  */
 export async function extractGenericMetadata(
   text: string,

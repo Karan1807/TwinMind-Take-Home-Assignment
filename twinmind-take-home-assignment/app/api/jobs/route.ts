@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSupabaseClient } from "@/lib/supabaseClient";
 
-const allowedModalities = ["audio", "document", "plain text", "images"];
+const allowedModalities = ["audio", "document", "plain text"];
 
 // Normalize modality for database (spaces to underscores)
 function normalizeModalityForDB(modality: string): string {
@@ -15,7 +15,6 @@ function denormalizeModalityFromDB(modality: string): string {
     "audio": "audio",
     "document": "document",
     "text": "plain text",  // Map "text" back to "plain text"
-    "images": "images",
   };
   return reverseMap[modality] || modality.replace(/_/g, " ");
 }
@@ -92,13 +91,12 @@ export async function POST(req: NextRequest) {
 
     const supabase = getServerSupabaseClient();
     // Map modality to database format
-    // The constraint likely expects: 'audio', 'document', 'text', 'images'
+    // The constraint likely expects: 'audio', 'document', 'text'
     // (not 'plain_text' or 'plain text')
     const modalityMap: Record<string, string> = {
       "audio": "audio",
       "document": "document",
       "plain text": "text",  // Map "plain text" to "text" for database
-      "images": "images",
     };
     
     const dbModality = modalityMap[modality] || modality.toLowerCase().replace(/\s+/g, "_");
@@ -136,7 +134,6 @@ export async function POST(req: NextRequest) {
     const shouldProcess = 
       (modality === "audio" && job.storage_path) ||
       (modality === "document" && job.storage_path) ||
-      (modality === "images" && job.storage_path) ||
       (modality === "plain text" && job.storage_path);
     
     if (shouldProcess) {

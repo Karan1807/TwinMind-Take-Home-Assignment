@@ -116,6 +116,10 @@ export async function generateImages(): Promise<void> {
         quality: 'standard',
       });
       
+      if (!response.data || response.data.length === 0) {
+        throw new Error('No image data returned');
+      }
+      
       const imageUrl = response.data[0].url;
       if (!imageUrl) {
         throw new Error('No image URL returned');

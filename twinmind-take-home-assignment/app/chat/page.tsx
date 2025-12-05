@@ -210,8 +210,8 @@ export default function ChatPage() {
                 </h2>
                 <p className="mt-2 text-sm text-blue-200/70">
                   Your queries will search through all your audio
-                  transcriptions, documents, web content, images, and other
-                  uploaded content using hybrid search.
+                  transcriptions, documents, web content, and other uploaded
+                  content using hybrid search.
                 </p>
                 <div className="mt-4 space-y-2 text-left text-xs text-blue-200/60 rounded-xl border border-blue-500/30 bg-black/30 backdrop-blur-sm p-4">
                   <p className="text-blue-300/80">

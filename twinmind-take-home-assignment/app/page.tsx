@@ -46,8 +46,7 @@ export default function Home() {
             Welcome back
           </h2>
           <p className="mb-8 text-sm text-blue-200/70">
-            Sign in to upload audio, documents, text, images, and more in a
-            unified workspace.
+            Sign in to upload audio, documents, and text in a unified workspace.
           </p>
 
           <div className="space-y-3">

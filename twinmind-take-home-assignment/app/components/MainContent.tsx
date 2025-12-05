@@ -41,7 +41,7 @@ const MainContent = ({ activeTab }: MainContentProps) => {
             {activeTab === "memories" &&
               "Browse and explore your stored memories. Your neural network contains all your experiences."}
             {activeTab === "upload" &&
-              "Upload new memories to expand your neural network. Add text, images, or documents."}
+              "Upload new memories to expand your neural network. Add text or documents."}
           </p>
         </div>
 
