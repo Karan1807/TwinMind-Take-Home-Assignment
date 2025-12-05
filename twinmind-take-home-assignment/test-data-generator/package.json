@@ -1,0 +1,26 @@
+{
+    "name": "test-data-generator",
+    "version": "1.0.0",
+    "description": "Test data generator for TwinMind second brain prototype",
+    "type": "module",
+    "scripts": {
+        "generate": "tsx src/index.ts",
+        "generate:audio": "tsx src/generateAudio.ts",
+        "generate:documents": "tsx src/generateDocuments.ts",
+        "generate:websites": "tsx src/generateWebsites.ts",
+        "generate:diary": "tsx src/generateDiary.ts",
+        "generate:images": "tsx src/generateImages.ts",
+        "combine:audio": "tsx src/combineAudio.ts"
+    },
+    "dependencies": {
+        "openai": "^6.9.1",
+        "pdf-lib": "^1.17.1",
+        "fs-extra": "^11.2.0"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^20",
+        "tsx": "^4.7.0",
+        "typescript": "^5"
+    }
+}

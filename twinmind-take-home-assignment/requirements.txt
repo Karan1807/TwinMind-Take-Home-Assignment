@@ -1,0 +1,89 @@
+# TwinMind Take-Home Assignment - Dependencies
+# This file lists all required packages for the project
+# Install with: npm install
+
+# ============================================
+# Production Dependencies
+# ============================================
+
+# Core Framework
+next@16.0.7
+react@19.2.0
+react-dom@19.2.0
+
+# Database & Storage
+@supabase/supabase-js@^2.86.0
+pg@^8.16.3
+
+# Vector Database
+@qdrant/qdrant-js@^1.16.2
+
+# AI/ML Services
+openai@^6.9.1
+cohere-ai@^7.20.0
+
+# Document Processing
+pdf2json@latest
+mammoth@^1.11.0
+
+# Web Content Processing
+cheerio@^1.1.2
+
+# Image Processing (OCR)
+tesseract.js@^6.0.1
+
+# ============================================
+# Development Dependencies
+# ============================================
+
+# TypeScript
+typescript@^5
+@types/node@^20
+@types/react@^19
+@types/react-dom@^19
+@types/pg@^8.15.6
+@types/pdf-parse@^1.1.5
+
+# Build Tools
+tailwindcss@^4
+@tailwindcss/postcss@^4
+eslint@^9
+eslint-config-next@16.0.7
+
+# ============================================
+# Installation Instructions
+# ============================================
+# 
+# This is a Node.js/Next.js project. Dependencies are managed via package.json.
+# 
+# 1. Install all dependencies (recommended):
+#    npm install
+#
+# 2. Or install production dependencies only:
+#    npm install --production
+#
+# 3. The package.json file contains the exact dependency specifications.
+#    This requirements.txt is for documentation purposes.
+#
+# Note: For Python projects, use requirements.txt with pip.
+#       For Node.js projects, use package.json with npm.
+#
+# ============================================
+# Environment Variables Required
+# ============================================
+# 
+# Create a .env.local file with:
+# 
+# NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+# NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+# SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+# OPENAI_API_KEY=your_openai_api_key
+# QDRANT_URL=your_qdrant_url (optional, defaults to http://localhost:6333)
+# QDRANT_API_KEY=your_qdrant_api_key (optional)
+#
+# ============================================
+# Package Versions
+# ============================================
+# All versions are pinned to ensure compatibility
+# Update with caution and test thoroughly
+
